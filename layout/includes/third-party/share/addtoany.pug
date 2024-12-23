@@ -2,9 +2,24 @@
   .a2a_kit.a2a_kit_size_32.a2a_default_style
     - let addtoanyItem = theme.addtoany.item.split(',')
     each name in addtoanyItem
-      a(class="a2a_button_" + name)
-
+      //- https://www.addtoany.com/buttons/customize/share_counters
+      if ['facebook', 'pinterest', 'reddit', 'tumblr'].includes(name)
+        a(class="a2a_button_" + name + " a2a_counter")
+      else
+        a(class="a2a_button_" + name)
     a.a2a_dd(href="https://www.addtoany.com/share")
 script(async src='https://static.addtoany.com/menu/page.js')
 
+//- https://www.addtoany.com/buttons/customize/templates
+script.
+  var a2a_config = a2a_config || {};
+  a2a_config.templates = a2a_config.templates || {};
 
+  a2a_config.templates.email = {
+      subject: "来自 dong4j 的分享: ${title}",
+      body: "一篇有意思的博文:\n${link}",
+  };
+
+  a2a_config.templates.sms = {
+      body: "给你分享一篇有意思的博客:\n${title}\n${link}",
+  };

@@ -1,0 +1,23 @@
+#loading-box(onclick='document.getElementById("loading-box").classList.add("loaded")')
+  .loading-left-bg
+  .loading-right-bg
+  .spinner-box
+  .carplay
+
+script.
+  const preloader = {
+    endLoading: () => {
+      document.getElementById('loading-box').classList.add("loaded");
+    },
+    initLoading: () => {
+      document.getElementById('loading-box').classList.remove("loaded")
+    }
+  }
+
+  window.addEventListener('load',()=> { preloader.endLoading() })
+  setTimeout(function(){preloader.endLoading();},10000)
+
+  if (!{theme.pjax && theme.pjax.enable}) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }

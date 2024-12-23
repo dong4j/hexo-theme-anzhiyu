@@ -39,6 +39,16 @@ if hexo-config('preloader')
       .loading-bg
         opacity: 0;
         z-index: -1000;
+      .loading-left-bg
+        transition: all .5s
+        transform: translate(-100%, 0)
+      .loading-right-bg
+        transition: all .5s
+        transform: translate(100%, 0)
+      .spinner-box
+        display: none
+      .carplay
+        display: none
 
   @keyframes loadingAction
     0% {
