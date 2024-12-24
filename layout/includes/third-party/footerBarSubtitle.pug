@@ -99,6 +99,38 @@ case source
       } else {
         subtitleType()
       }
+  when 4
+    script.
+      function subtitleType () {
+        fetch('https://hitokoto.dong4j.ink:1024')
+          .then(response => response.json())
+          .then(data => {
+            if (!{effect}) {
+              const from = '出自 ' + data.from
+              const sub = !{JSON.stringify(subContent)}
+              sub.unshift(data.hitokoto, from)
+              window.typed = new Typed('#footer-type-tips', {
+                strings: sub,
+                startDelay: !{startDelay},
+                typeSpeed: !{typeSpeed},
+                loop: !{loop},
+                backSpeed: !{backSpeed},
+              })
+            } else {
+              document.getElementById('footer-type-tips').innerHTML = data.hitokoto
+            }
+          })
+      }
+
+      if (!{effect}) {
+        if (typeof Typed === 'function') {
+          subtitleType()
+        } else {
+          getScript('!{url_for(theme.asset.typed)}').then(subtitleType)
+        }
+      } else {
+        subtitleType()
+      }
 
   default
     - subContent = subContent.length ? subContent : new Array(config.subtitle)
