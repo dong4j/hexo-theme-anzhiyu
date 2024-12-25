@@ -64,6 +64,26 @@
         a.github-badge(target='_blank' href=item.link style='margin-inline:5px' data-title=item.message title=item.message)
           img(src=item.shields alt=item.message)
 
+//- if theme.footer.footerBar && theme.footer.footerBar.enable
+//-   #footer-bar
+//-     .footer-bar-links
+//-       .
+//-       footer-bar-left
+//-         #footer-bar-tips
+//-           if theme.footer.owner.enable
+//-             - var nowYear = new Date().getFullYear()
+//-             - let authorLink = theme.footer.footerBar.authorLink ? theme.footer.footerBar.authorLink : config.url
+//-             if theme.footer.owner.since && theme.footer.owner.since != nowYear
+//-               .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By `
+//-                 a.footer-bar-link(href=url_for(authorLink) title=config.author target="_blank")=config.author
+//-             else
+//-               .copyright!= `&copy;${nowYear} By `
+//-                 a.footer-bar-link(href=url_for(authorLink) title=config.author target="_blank")=config.author
+//-         #footer-type-tips
+//-         if theme.footer.footerBar && theme.footer.footerBar.subTitle && theme.footer.footerBar.subTitle.enable
+//-           .js-pjax
+//-             include ./third-party/footerBarSubtitle.pug
+
 if theme.footer.footerBar && theme.footer.footerBar.enable
   #footer-bar
     .footer-bar-links
@@ -74,10 +94,14 @@ if theme.footer.footerBar && theme.footer.footerBar.enable
             - let authorLink = theme.footer.footerBar.authorLink ? theme.footer.footerBar.authorLink : config.url
             if theme.footer.owner.since && theme.footer.owner.since != nowYear
               .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By `
-                a.footer-bar-link(href=url_for(authorLink) title=config.author target="_blank")=config.author
+                a.footer-bar-link(href=url_for(authorLink) title=config.author target="_blank" rel="external nofollow")
+                  img.author-avatar(src="https://s2.loli.net/2023/09/24/6GoSezhj25s8BUq.jpg" alt="avatar" class="entered loading" data-ll-status="loading")
+                  =config.author
             else
               .copyright!= `&copy;${nowYear} By `
-                a.footer-bar-link(href=url_for(authorLink) title=config.author target="_blank")=config.author
+                a.footer-bar-link(href=url_for(authorLink) title=config.author target="_blank" rel="external nofollow")
+                  img.author-avatar(src="https://s2.loli.net/2023/09/24/6GoSezhj25s8BUq.jpg" alt="avatar" class="entered loading" data-ll-status="loading")
+                  =config.author
         #footer-type-tips
         if theme.footer.footerBar && theme.footer.footerBar.subTitle && theme.footer.footerBar.subTitle.enable
           .js-pjax
