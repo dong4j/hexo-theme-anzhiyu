@@ -23,6 +23,11 @@ if !theme.disable_top_img && page.top_img !== false
           a.reward-link-button(href=url_for(theme.ptool.mode))
             i.anzhiyufont.anzhiyu-icon-plant-fill
             | 运营模式与责任
+      //-  添加订阅按钮
+      .reward-link.mode(style="margin-left:.5rem; width:100px; background:var(--heo-purple)")
+        a.reward-link-button(href="javascript:void(0);" onclick="icat.showFollowBox()" title="订阅")
+          i.anzhiyufont.anzhiyu-icon-rss
+          | 订阅
     div.shareRight
       if theme.ptool.share_mobile
         .share-link.mobile
@@ -52,3 +57,16 @@ if !theme.disable_top_img && page.top_img !== false
         .share-link.copyurl
           #post-share-url.share-button(title='复制链接' onclick='copyCurrentPageUrl()')
             i.anzhiyufont.anzhiyu-icon-link
+
+//- // 隐藏的 follow.pug 内容
+.submit-box.hidden
+  include ../page/follow.pug
+
+//- // JavaScript 控制逻辑
+script.
+  var icat = {
+      showFollowBox: function() {
+          var e = document.querySelector(".submit-box");
+          e.classList.contains("display") ? e.classList.remove("display") : e.classList.add("display");
+      }
+  };

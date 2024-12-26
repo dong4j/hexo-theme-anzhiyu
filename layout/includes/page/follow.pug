@@ -1,0 +1,58 @@
+form#follow(action="https://api.follow.it/subscription-form/b29peEszNWYzK3FQbEw2dVlITEJMZ2pQRXh2dWRLVDE3SC96eFhRaGwwQWprcXpYYUp0NGFWemxVZllXRGU4Nm4yenNGSzNpV3l0Z1EwQzBXQU5xTG9pZWNzVCt5YWptWUt6TXppRXVXMXZxQTRZOGQ0NUVDRlRFOUYxSHMzMEJ8NmlodHY1VWhDQVZBaG8wM0pSV2pXSjdTNGRWS1o0RDVZbE11KzlEeWhuZz0=/8" method="post" target="_blank")
+    .follow-it-form-subscribe(style="position: relative;")
+        .heading
+            h5(style="font-weight: bold; text-align: center;") 订阅本站文章：
+        .input-field
+            input(type="email" id="email-input" name="email" placeholder="填入您的邮箱地址" spellcheck="false" oninput="validateEmail()")
+        .submit-button
+            button(type="submit" id="submit-button" onclick="ga('send','event', 'Form','Submit','Affiliate');" style="font-weight: bold; font-size: 14px; text-align: center;" disabled) 确认订阅
+    if is_page()
+        hr
+
+style.
+    /* 邮箱输入框的样式 */
+    #email-input {
+        font-size: 16px; /* 增大字体 */
+        font-weight: bold; /* 加粗字体 */
+        padding: 10px; /* 增加内边距 */
+        border: 2px solid #ccc; /* 边框样式 */
+        border-radius: 5px; /* 边框圆角 */
+        width: 100%; /* 自适应宽度 */
+        box-sizing: border-box; /* 包括 padding 和 border */
+    }
+
+    /* 输入框正确或错误时的边框颜色变化 */
+    #email-input:focus {
+        outline: none; /* 移除默认的 focus 样式 */
+    }
+
+    #email-input.valid {
+        border-color: green; /* 正确时边框为绿色 */
+    }
+
+    #email-input.invalid {
+        border-color: red; /* 错误时边框为红色 */
+    }
+    
+script.
+    // 邮箱格式校验函数
+    function validateEmail() {
+        const emailInput = document.getElementById('email-input');
+        const submitButton = document.getElementById('submit-button');
+        const email = emailInput.value;
+
+        // 正则表达式校验邮箱格式
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailRegex.test(email)) {
+            // 如果邮箱格式正确，启用按钮
+            submitButton.disabled = false;
+            emailInput.classList.add("valid");
+            emailInput.classList.remove("invalid");
+        } else {
+            // 如果邮箱格式不正确，禁用按钮
+            submitButton.disabled = true;
+            emailInput.classList.add("invalid");
+            emailInput.classList.remove("valid");
+        }
+    }
