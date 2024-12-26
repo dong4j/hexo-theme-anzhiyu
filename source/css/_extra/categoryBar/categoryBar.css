@@ -4,6 +4,7 @@
 }
 
 #category-bar {
+  margin-top: 1rem;
   padding: 0.5rem 10px;
   background: var(--anzhiyu-card-bg);
   display: flex;
