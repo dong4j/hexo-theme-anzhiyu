@@ -1,15 +1,22 @@
-if theme.preloader.source === 1
-  include ./fullpage-loading.pug
-else if theme.preloader.source === 2
-  include ./pace.pug
-else if theme.preloader.source === 3
-  include ./car-loading.pug
-else if theme.preloader.source === 4
-  include ./car-loading.pug
-  include ./pace.pug
-else if theme.preloader.source === 5
-  include ./fullpage-loading.pug
-  include ./pace.pug
+if theme.preloader.source === 'heo'
+  include ./load_style/heo.pug
+else if theme.preloader.source === 'car'
+  include ./load_style/car.pug
+else if theme.preloader.source === 'gear'
+  include ./load_style/gear.pug
+else if theme.preloader.source === 'ironheart'
+  include ./load_style/ironheart.pug
+else if theme.preloader.source === 'scarecrow'
+  include ./load_style/scarecrow.pug
+else if theme.preloader.source === 'triangles'
+  include ./load_style/triangles.pug
+else if theme.preloader.source === 'wizard'
+  include ./load_style/wizard.pug
+else if theme.preloader.source === 'image'
+  include ./load_style/image.pug
+else if theme.preloader.source === 'default'
+  include ./load_style/default.pug
 else
-  include ./fullpage-loading.pug
-  include ./pace.pug
+  include ./load_style/heo.pug
+
+include ./load_style/pace.pug
