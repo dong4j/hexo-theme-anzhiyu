@@ -15,6 +15,7 @@ if theme.aside.card_author.enable
         .author-info__bottom-group
           a.author-info__bottom-group-left(href=url_for(theme.aside.card_author.name_link))
             h1.author-info__name=config.author
-            .author-info__desc=config.subtitle
+            //- .author-info__desc=config.subtitle
+            .author-info__desc=theme.author_status.subtitle
           .card-info-social-icons.is-center
             !=fragment_cache('social', function(){return partial('includes/header/social')}) 
