@@ -74,6 +74,8 @@ if site.data.about
                           span=item.name 
                   .etc ...
         .author-content-item.careers
+          - let img = item.careers.img
+          - let imgDark = item.careers.imgDark
           .card-content
             .author-content-item-tips=careers.tips
             span.author-content-item-title=careers.title
@@ -86,8 +88,7 @@ if site.data.about
               else
                 .careers-none
             if careers.img
-              img.author-content-img.no-lightbox(alt=careers.tips, src=url_for(careers.img) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'`)
-      
+              img.author-content-img.no-lightbox(alt=careers.tips, src=xxx("tags") onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'`)
       .author-content
         if theme.LA.enable
           - let cover = item.statistic.cover
