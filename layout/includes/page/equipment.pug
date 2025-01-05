@@ -1,7 +1,7 @@
 #equipment
   if site.data.equipment
     each i in site.data.equipment
-      .author-content.author-content-item.fcirclePage.single(style = `background: url(${i.top_background}) left 37% / cover no-repeat !important;`)
+      .author-content.author-content-item.equipmentPage.single(style = `background: url(${i.top_background}) left 37% / cover no-repeat !important;`)
         .card-content
           .author-content-item-tips=i.class_name
           span.author-content-item-title=i.description
