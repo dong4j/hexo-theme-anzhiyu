@@ -14,9 +14,9 @@ hexo.extend.filter.register(
       highlight_height_limit: false,
       code_word_wrap: false,
       social: null,
-      favicon: "/favicon.ico",
+      favicon: "https://blog-1258270892.cos.ap-chengdu.myqcloud.com/source/image/favicon.ico",
       avatar: {
-        img: "https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg",
+        img: "https://blog-1258270892.cos.ap-chengdu.myqcloud.com/source/image/avatar.webp",
         effect: false,
       },
       disable_top_img: false,
