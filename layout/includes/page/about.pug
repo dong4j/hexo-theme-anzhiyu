@@ -84,7 +84,7 @@ if site.data.about
                 each career in crrList
                   .career-item
                     .circle(style=`background:${career.color ? career.color : "#357ef5"}`)
-                    .name=career.desc
+                    .name(style=`font-size:24px`)=career.desc
               else
                 .careers-none
             if careers.img
