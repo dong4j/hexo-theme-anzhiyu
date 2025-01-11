@@ -13,7 +13,7 @@ script.
     }
   }
   window.addEventListener('load',()=> { preloader.endLoading() })
-  setTimeout(function(){preloader.endLoading();},10000)
+  setTimeout(function(){preloader.endLoading();},2000)
 
   if (!{theme.pjax && theme.pjax.enable}) {
     document.addEventListener('pjax:send', () => { preloader.initLoading() })
