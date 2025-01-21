@@ -73,11 +73,12 @@ if theme.footer.footerBar && theme.footer.footerBar.enable
             - var nowYear = new Date().getFullYear()
             - let authorLink = theme.footer.footerBar.authorLink ? theme.footer.footerBar.authorLink : config.url
             if theme.footer.owner.since && theme.footer.owner.since != nowYear
-              .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By `
+              .copyright(style="display: flex; align-items: center; gap: 10px;")
+                != `&copy;${theme.footer.owner.since} - ${nowYear} By `
                 a.footer-bar-link(href=url_for(authorLink) title=config.author target="_blank")=config.author
-            else
-              .copyright!= `&copy;${nowYear} By `
-                a.footer-bar-link(href=url_for(authorLink) title=config.author target="_blank")=config.author
+                span 在线人数:
+                span#online_user(style="font-size: 1em; font-weight: bold;") 1
+                span#indicator(class="indicator" style="display: inline-block;width: 8px;height: 8px;border-radius: 50%;background-color: green;margin-left: 0px;animation: subtle-breathing 1.2s infinite;box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);")
         #footer-type-tips
         if theme.footer.footerBar && theme.footer.footerBar.subTitle && theme.footer.footerBar.subTitle.enable
           .js-pjax
