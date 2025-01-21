@@ -44,4 +44,12 @@ if theme.aside.card_webinfo.enable
             .item-name= _p('aside.card_webinfo.last_push_date.name') + " :"
           .item-count#last-push-date(data-lastPushDate=date_xml(Date.now()))
             i.anzhiyufont.anzhiyu-icon-spinner.anzhiyu-spin
+      if theme.aside.card_webinfo.online_stats
+        .webinfo-item
+          .webinfo-item-title
+            i.anzhiyufont.anzhiyu-icon-hashtag
+            .item-name= _p('在线人数') + " :"
+          .item-count#online_user("1")
+          .indicator#indicator(style="display: inline-block;width: 8px;height: 8px;border-radius: 50%;background-color: green;margin-left: 0px;animation: subtle-breathing 1.2s infinite;box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);")
+            //- i.anzhiyufont.anzhiyu-icon-spinner.anzhiyu-spin
 
