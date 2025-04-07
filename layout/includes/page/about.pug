@@ -76,15 +76,18 @@ if site.data.about
         .author-content-item.careers
           - let img = item.careers.img
           - let imgDark = item.careers.imgDark
+          - let resume = item.careers.resume
           .card-content
             .author-content-item-tips=careers.tips
             span.author-content-item-title=careers.title
+              | &nbsp;
+              a(href=resume, target='_blank', rel='noopener nofollow', style=`font-size:18px`) 个人履历
             .careers-group
               if crrList
                 each career in crrList
                   .career-item
                     .circle(style=`background:${career.color ? career.color : "#357ef5"}`)
-                    .name(style=`font-size:24px`)=career.desc
+                    .name(style=`font-size:18px`)=career.desc
               else
                 .careers-none
             if careers.img
@@ -99,7 +102,7 @@ if site.data.about
               #statistic
               .post-tips
                 | 统计信息来自 
-                a(href='https://invite.51.la/1NzKqTeb?target=V6', target='_blank', rel='noopener nofollow') 51la网站统计
+                a(href='https://invite.51.la/1NzKqTeb?target=V6', target='_blank', rel='noopener nofollow') 51la 网站统计
               .banner-button-group
                 - let link = item.statistic.link
                 - let text = item.statistic.text
