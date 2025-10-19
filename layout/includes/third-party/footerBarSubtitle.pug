@@ -102,7 +102,7 @@ case source
   when 4
     script.
       function subtitleType () {
-        fetch('https://hitokoto.dong4j.ink:1024')
+        fetch('https://api.dong4j.site/hitokoto')
           .then(response => response.json())
           .then(data => {
             if (!{effect}) {
