@@ -10,6 +10,7 @@ script(async=true).
     var mnum;
     var snum;
     var nowHour;
+    var isWorkTime; // 跟踪当前时间状态（true=上班时间，false=下班时间）
 
     // 计算并更新天数、小时数、分钟数和秒数
     function updateTime() {
@@ -34,33 +35,51 @@ script(async=true).
       }
     }
 
+    // 更新图片（只在时间状态改变时调用）
+    function updateImage(forceUpdate) {
+      const currentIsWorkTime = nowHour < 18 && nowHour >= 9;
+      
+      // 只在状态改变时或强制更新时更新图片
+      // isWorkTime 可能是 undefined（初始化）或 boolean，都可以与 currentIsWorkTime 比较
+      if (forceUpdate || isWorkTime !== currentIsWorkTime) {
+        isWorkTime = currentIsWorkTime;
+        
+        // 如果是下班时间，更新图片
+        if (!isWorkTime) {
+          let img = document.querySelector("#workboard .workSituationImg");
+          if (img != null) {
+            // 添加时间戳参数破坏缓存，确保图片能够刷新
+            const imgUrl = "#{offduty_img}";
+            const separator = imgUrl.indexOf("?") > -1 ? "&" : "?";
+            img.src = imgUrl + separator + "_t=" + Date.now();
+            img.title = "#{offduty_description}";
+            img.alt = "#{offduty_description}";
+          }
+        }
+        // 如果是上班时间，图片默认就是"安知鱼-上班摸鱼中.svg"，不需要更改
+      }
+    }
+
     // 更新网页中显示的网站运行时间
     function updateHtml() {
       const footer = document.getElementById("footer");
       if (!footer) return
-      let currentTimeHtml = "";
-      if (nowHour < 18 && nowHour >= 9) {
-        // 如果是上班时间，默认就是"安知鱼-上班摸鱼中.svg"图片，不需要更改
-        currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
-      } else {
-        // 如果是下班时间，插入"安知鱼-下班啦.svg"图片
-        let img = document.querySelector("#workboard .workSituationImg");
-        if (img != null) {
-          img.src = "#{offduty_img}";
-          img.title = "#{offduty_description}";
-          img.alt = "#{offduty_description}";
-        }
-
-        currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
-      }
+      
+      const currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
 
       if (document.getElementById("runtimeTextTip")) {
         document.getElementById("runtimeTextTip").innerHTML = currentTimeHtml;
       }
     }
 
+    // 初始化时更新一次图片（强制更新以确保初始状态正确）
+    updateTime();
+    updateImage(true); // 强制更新，确保初始状态正确
+    updateHtml();
+
     setInterval(() => {
       updateTime();
+      updateImage(); // 检查是否需要更新图片
       updateHtml();
     }, 1000);
   })();
