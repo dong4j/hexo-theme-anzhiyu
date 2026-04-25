@@ -1270,10 +1270,11 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         const fallbackValue = "var(--anzhiyu-theme)";
         let fetchPath = "";
+        const encodedPath = encodeURIComponent(path);
         if (GLOBAL_CONFIG.mainTone.mode == "cdn" || GLOBAL_CONFIG.mainTone.mode == "both") {
           fetchPath = path + "?imageAve";
         } else if (GLOBAL_CONFIG.mainTone.mode == "api") {
-          fetchPath = GLOBAL_CONFIG.mainTone.api + path;
+          fetchPath = GLOBAL_CONFIG.mainTone.api + encodedPath;
         }
         // cdn/api模式请求
         try {
@@ -1308,7 +1309,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (GLOBAL_CONFIG.mainTone.mode == "both") {
               // both继续请求
               try {
-                const response = await fetch(GLOBAL_CONFIG.mainTone.api + path);
+                const response = await fetch(GLOBAL_CONFIG.mainTone.api + encodedPath);
                 if (response.ok && response.headers.get("content-type")?.includes("application/json")) {
                   const obj = await response.json();
                   let value = obj.RGB;
