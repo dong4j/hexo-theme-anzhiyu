@@ -68,6 +68,10 @@ a.categoryButton.red {
   background: linear-gradient(to right, #f65, #ffbf37);
   background-size: 200%;
 }
+a.categoryButton.yellow {
+  background: linear-gradient(to right, #f6b500, #ffd84d);
+  background-size: 200%;
+}
 a.categoryButton.green {
   background: linear-gradient(to right, #18e7ae, #1eebeb);
   background-size: 200%;
@@ -110,6 +114,10 @@ a.categoryButton:after {
 }
 [data-theme="dark"] a.categoryButton.red {
   background: linear-gradient(to right, #e22a16, #da980c);
+  background-size: 200%;
+}
+[data-theme="dark"] a.categoryButton.yellow {
+  background: linear-gradient(to right, #b77900, #d69e2e);
   background-size: 200%;
 }
 [data-theme="dark"] a.categoryButton.green {
