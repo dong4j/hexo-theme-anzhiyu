@@ -1151,9 +1151,12 @@ const anzhiyu = {
 
   // 创建二维码
   qrcodeCreate: function () {
-    if (document.getElementById("qrcode")) {
-      document.getElementById("qrcode").innerHTML = "";
-      var qrcode = new QRCode(document.getElementById("qrcode"), {
+    const qrcodeEl = document.getElementById("qrcode");
+    if (qrcodeEl) {
+      // 二维码依赖来自外部 CDN，加载失败时不能中断页面核心初始化。
+      if (typeof QRCode === "undefined") return;
+      qrcodeEl.innerHTML = "";
+      var qrcode = new QRCode(qrcodeEl, {
         text: window.location.href,
         width: 250,
         height: 250,
