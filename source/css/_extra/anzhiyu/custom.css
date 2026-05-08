@@ -2,6 +2,25 @@ h1#site-title {
   font-size: 3em !important;
 }
 
+/* 普通页面的顶部背景在亮色主题下经常偏浅，白色导航和标题会失去可读性。 */
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #site-title,
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #site-subtitle,
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #nav #blog_name,
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #nav #site-name,
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #nav .site-page,
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #nav .menus_items .menus_item > a,
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #nav #nav-right .nav-button a,
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #nav #nav-right #toggle-menu,
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #nav .back-home-button {
+  color: var(--anzhiyu-fontcolor) !important;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #nav #nav-right .nav-button a i,
+[data-theme="light"] #page-header.not-home-page:not(.nav-fixed) #nav #nav-left .nav-button a i {
+  color: var(--anzhiyu-fontcolor) !important;
+}
+
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 3em;

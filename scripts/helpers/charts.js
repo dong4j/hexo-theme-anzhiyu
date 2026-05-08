@@ -1,6 +1,20 @@
 // charts.js
 const cheerio = require('cheerio')
 const moment = require('moment')
+const echartsCdn = 'https://cdn.dong4j.site/source/static/echarts.min.js'
+const chartsRuntime = `
+    var getChartsTextColor = window.getChartsTextColor || (window.getChartsTextColor = function () {
+      var rootStyle = getComputedStyle(document.documentElement);
+      var cssColor = rootStyle.getPropertyValue('--font-color').trim() || rootStyle.getPropertyValue('--anzhiyu-fontcolor').trim();
+      return cssColor || (document.documentElement.getAttribute('data-theme') === 'dark' ? 'rgba(255,255,255,0.78)' : '#4c4948');
+    });
+    var loadChartsEcharts = window.loadChartsEcharts || (window.loadChartsEcharts = function () {
+      if (window.echarts) return Promise.resolve();
+      if (window.__chartsEchartsLoading) return window.__chartsEchartsLoading;
+      window.__chartsEchartsLoading = getScript('${echartsCdn}', { 'data-pjax': '' });
+      return window.__chartsEchartsLoading;
+    });
+`
 
 hexo.extend.filter.register('after_render:html', function (locals) {
   const $ = cheerio.load(locals)
@@ -56,7 +70,9 @@ function postsChart (startMonth) {
 
   return `
   <script id="postsChart">
-    var color = document.documentElement.getAttribute('data-theme') === 'light' ? '#4c4948' : 'rgba(255,255,255,0.7)'
+    ${chartsRuntime}
+    loadChartsEcharts().then(function () {
+    var color = getChartsTextColor()
     var postsChart = echarts.init(document.getElementById('posts-chart'), 'light');
     var postsOption = {
       title: {
@@ -162,6 +178,7 @@ function postsChart (startMonth) {
     postsChart.on('click', 'series', (event) => {
       if (event.componentType === 'series') window.location.href = '/archives/' + event.name.replace('-', '/');
     });
+    });
   </script>`
 }
 
@@ -182,7 +199,9 @@ function tagsChart (len) {
 
   return `
   <script id="tagsChart">
-    var color = document.documentElement.getAttribute('data-theme') === 'light' ? '#4c4948' : 'rgba(255,255,255,0.7)'
+    ${chartsRuntime}
+    loadChartsEcharts().then(function () {
+    var color = getChartsTextColor()
     var tagsChart = echarts.init(document.getElementById('tags-chart'), 'light');
     var tagsOption = {
       title: {
@@ -283,6 +302,7 @@ function tagsChart (len) {
     tagsChart.on('click', 'series', (event) => {
       if(event.data.path) window.location.href = '/' + event.data.path;
     });
+    });
   </script>`
 }
 
@@ -323,7 +343,9 @@ function categoriesChart (dataParent) {
 
   return `
   <script id="categoriesChart">
-    var color = document.documentElement.getAttribute('data-theme') === 'light' ? '#4c4948' : 'rgba(255,255,255,0.7)'
+    ${chartsRuntime}
+    loadChartsEcharts().then(function () {
+    var color = getChartsTextColor()
     var categoriesChart = echarts.init(document.getElementById('categories-chart'), 'light');
     var categoryParentFlag = ${categoryParentFlag}
     var categoriesOption = {
@@ -335,7 +357,10 @@ function categoriesChart (dataParent) {
         }
       },
       legend: {
-        top: 'bottom',
+        type: 'scroll',
+        bottom: 8,
+        left: 'center',
+        width: '92%',
         data: ${categoryNameJson},
         textStyle: {
           color: color
@@ -352,8 +377,8 @@ function categoriesChart (dataParent) {
         nodeClick :false,
         name: '文章篇数',
         type: 'sunburst',
-        radius: ['15%', '90%'],
-        center: ['50%', '55%'],
+        radius: ['12%', '58%'],
+        center: ['50%', '42%'],
         sort: 'desc',
         data: ${categoryArrParentJson},
         itemStyle: {
@@ -372,6 +397,7 @@ function categoriesChart (dataParent) {
         name: '文章篇数',
         type: 'pie',
         radius: [30, 80],
+        center: ['50%', '42%'],
         roseType: 'area',
         label: {
           color: color,
@@ -393,6 +419,7 @@ function categoriesChart (dataParent) {
     });
     categoriesChart.on('click', 'series', (event) => {
       if(event.data.path) window.location.href = '/' + event.data.path;
+    });
     });
   </script>`
 }
