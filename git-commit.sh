@@ -1,16 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# 用途：提交并推送当前主题仓库。
+# 默认使用 ~/.local/bin/git-with-ai.sh 生成提交信息；可传 --tool codex / --tool gemini 切换工具。
+set -euo pipefail
 
-# 获取当前脚本的所在目录
-SCRIPT_DIR=$(dirname "$(realpath "$0")")
-
-echo $SCRIPT_DIR
-
+SCRIPT_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
 cd "$SCRIPT_DIR" || exit 1
 
-# 使用第一个参数作为提交信息，如果未提供参数，则使用默认信息
-COMMIT_MESSAGE=${1:-"更新文档"}
+GIT_WITH_AI="${GIT_WITH_AI:-$HOME/.local/bin/git-with-ai.sh}"
 
-# 执行 Git 操作
-git add .
-git commit -m "$COMMIT_MESSAGE"
+if [[ ! -x "$GIT_WITH_AI" ]]; then
+  echo "未找到可执行的 git-with-ai.sh：$GIT_WITH_AI" >&2
+  exit 1
+fi
+
+"$GIT_WITH_AI" "$@"
 git push -u origin main
