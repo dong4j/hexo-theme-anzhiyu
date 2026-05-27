@@ -17,6 +17,29 @@ html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside
     if page.type !== '404'
       #body-wrap(class=pageType)
         include ./header/index.pug
+        if theme.notification && theme.notification.enable && is_home()
+          #global-notification(style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#4caf50;color:#fff;text-align:center;padding:10px 40px 10px 16px;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.15);display:none;")
+            span#notification-text= theme.notification.text || "🔍 通知"
+            button#notification-close(style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:0 4px;line-height:1;") ×
+          script.
+            (function() {
+              var el = document.getElementById('global-notification');
+              var closeBtn = document.getElementById('notification-close');
+              if (!el) return;
+              if (localStorage.getItem('notification-dismissed')) return;
+              el.style.display = 'block';
+              var timer = setTimeout(function() {
+                el.style.display = 'none';
+                localStorage.setItem('notification-dismissed', '1');
+              }, 10000);
+              if (closeBtn) {
+                closeBtn.onclick = function() {
+                  clearTimeout(timer);
+                  el.style.display = 'none';
+                  localStorage.setItem('notification-dismissed', '1');
+                };
+              }
+            })();
         main#blog-container
           if (is_home())
             include ./bbTimeList.pug
